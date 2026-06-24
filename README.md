@@ -2,7 +2,7 @@
 
 Repositório do meu currículo publicado via **GitHub Pages**.
 
-🌐 **Acesse em:** https://goverllly.github.io/pedro-troglio/#sobre
+🌐 **Acesse em:** https://goverllly.github.io/pedro-troglio/
 
 ## Sobre o site
 

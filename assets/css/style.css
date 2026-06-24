@@ -803,16 +803,27 @@
       text-transform: uppercase;
     }
 
-    .site-highlight {
-      cursor: pointer;
+    .highlights-sites {
+      align-items: stretch;
+    }
+
+    a.highlight.site-highlight {
       display: flex;
       flex-direction: column;
       padding: 0;
       height: 100%;
+      min-height: 100%;
+      cursor: pointer;
+    }
+
+    .site-highlight::before {
+      display: none;
     }
 
     .site-highlight-body {
-      flex: 1;
+      position: relative;
+      z-index: 1;
+      flex: 1 1 auto;
       padding: 20px 20px 16px;
     }
 
@@ -821,10 +832,13 @@
     }
 
     .site-highlight-url {
+      position: relative;
+      z-index: 2;
       display: flex;
       align-items: center;
       gap: 6px;
       margin-top: auto;
+      flex-shrink: 0;
       padding: 12px 20px;
       border-top: 1px solid var(--line);
       background: color-mix(in srgb, var(--surface-2) 55%, transparent);
@@ -832,6 +846,7 @@
       font-size: 0.82rem;
       font-weight: 700;
       letter-spacing: 0.03em;
+      transition: background var(--speed), border-color var(--speed);
     }
 
     .site-highlight-url i {
@@ -840,7 +855,8 @@
     }
 
     .site-highlight:hover .site-highlight-url {
-      background: color-mix(in srgb, var(--accent-2) 12%, var(--surface-2));
+      border-top-color: color-mix(in srgb, var(--accent-2) 35%, var(--line));
+      background: color-mix(in srgb, var(--surface-2) 72%, transparent);
     }
 
     .site-highlight:focus-visible {
@@ -1582,6 +1598,10 @@
 
       .site-highlight {
         padding: 0;
+      }
+
+      a.highlight.site-highlight {
+        display: flex;
       }
 
       .site-highlight-body {

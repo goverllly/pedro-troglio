@@ -129,7 +129,6 @@
 
     (function countersAndReveal() {
       const revealItems = document.querySelectorAll(".reveal, .timeline-item");
-      const meters = document.querySelectorAll(".meter > span");
       const counters = document.querySelectorAll("[data-target]");
       let counterDone = false;
 
@@ -137,11 +136,6 @@
         entries.forEach((entry) => {
           if (!entry.isIntersecting) return;
           entry.target.classList.add("visible");
-
-          const bars = entry.target.querySelectorAll(".meter > span");
-          bars.forEach((bar) => {
-            bar.style.width = bar.dataset.pct + "%";
-          });
         });
       }, { threshold: 0.14 });
 
@@ -166,9 +160,6 @@
           if (!entry.isIntersecting || counterDone) return;
           counterDone = true;
           counters.forEach((counter) => animateCounter(counter, Number(counter.dataset.target)));
-          meters.forEach((bar) => {
-            bar.style.width = bar.dataset.pct + "%";
-          });
         });
       }, { threshold: 0.4 });
 

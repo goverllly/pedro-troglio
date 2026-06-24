@@ -763,6 +763,66 @@
       letter-spacing: 0.03em;
     }
 
+    .highlights-block {
+      margin-top: 40px;
+      padding-top: 36px;
+      border-top: 1px solid var(--line);
+    }
+
+    .highlights-block-title {
+      font-family: "Sora", sans-serif;
+      font-size: 1.15rem;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .highlights-block-title i {
+      color: var(--accent);
+    }
+
+    .highlights-block-sub {
+      color: var(--muted);
+      font-size: 0.92rem;
+      margin-bottom: 18px;
+      max-width: 62ch;
+    }
+
+    .highlight-badge {
+      display: inline-block;
+      margin-bottom: 10px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid color-mix(in srgb, var(--accent-2) 35%, var(--line));
+      background: color-mix(in srgb, var(--accent-2) 10%, transparent);
+      color: var(--accent-2);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .site-highlight {
+      cursor: pointer;
+    }
+
+    .site-highlight small {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .site-highlight small i {
+      font-size: 0.72rem;
+      opacity: 0.85;
+    }
+
+    .site-highlight:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+    }
+
     .spider-highlight {
       --spider-bg: rgba(7, 13, 26, 0.52);
       --spider-border: rgba(56, 189, 248, 0.14);

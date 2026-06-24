@@ -805,17 +805,42 @@
 
     .site-highlight {
       cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      padding: 0;
+      height: 100%;
     }
 
-    .site-highlight small {
-      display: inline-flex;
+    .site-highlight-body {
+      flex: 1;
+      padding: 20px 20px 16px;
+    }
+
+    .site-highlight-body p {
+      margin-bottom: 0;
+    }
+
+    .site-highlight-url {
+      display: flex;
       align-items: center;
       gap: 6px;
+      margin-top: auto;
+      padding: 12px 20px;
+      border-top: 1px solid var(--line);
+      background: color-mix(in srgb, var(--surface-2) 55%, transparent);
+      color: var(--accent-2);
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
     }
 
-    .site-highlight small i {
+    .site-highlight-url i {
       font-size: 0.72rem;
       opacity: 0.85;
+    }
+
+    .site-highlight:hover .site-highlight-url {
+      background: color-mix(in srgb, var(--accent-2) 12%, var(--surface-2));
     }
 
     .site-highlight:focus-visible {
@@ -1553,6 +1578,18 @@
       .cert,
       .social-card {
         padding: 16px;
+      }
+
+      .site-highlight {
+        padding: 0;
+      }
+
+      .site-highlight-body {
+        padding: 16px 16px 14px;
+      }
+
+      .site-highlight-url {
+        padding: 10px 16px;
       }
 
       .hero-stats {

@@ -807,12 +807,15 @@
       align-items: stretch;
     }
 
-    a.highlight.site-highlight {
+    .highlight.site-highlight {
       display: flex;
       flex-direction: column;
       padding: 0;
       height: 100%;
       min-height: 100%;
+    }
+
+    a.highlight.site-highlight {
       cursor: pointer;
     }
 
@@ -862,130 +865,6 @@
     .site-highlight:focus-visible {
       outline: 2px solid var(--accent);
       outline-offset: 3px;
-    }
-
-    .spider-highlight {
-      --spider-bg: rgba(7, 13, 26, 0.52);
-      --spider-border: rgba(56, 189, 248, 0.14);
-
-      position: relative;
-      isolation: isolate;
-      cursor: pointer;
-      border-color: var(--spider-border);
-      background: var(--spider-bg);
-      box-shadow:
-        0 0 0 1px rgba(255, 255, 255, 0.04),
-        0 24px 60px rgba(0, 0, 0, 0.5),
-        inset 0 1px 0 rgba(255, 255, 255, 0.06);
-      backdrop-filter: blur(18px) saturate(160%);
-      -webkit-backdrop-filter: blur(18px) saturate(160%);
-      contain: paint;
-    }
-
-    body[data-theme="light"] .spider-highlight {
-      --spider-bg: rgba(255, 255, 255, 0.92);
-      --spider-border: rgba(37, 99, 235, 0.15);
-
-      box-shadow: 0 8px 40px rgba(0, 0, 0, 0.12), 0 1px 3px rgba(0, 0, 0, 0.06);
-    }
-
-    .spider-highlight::before,
-    .spider-highlight::after {
-      content: none;
-    }
-
-    .spider-highlight .spider-highlight-canvas {
-      position: absolute;
-      inset: 0;
-      z-index: 0;
-      pointer-events: none;
-      width: 100%;
-      height: 100%;
-      border-radius: inherit;
-      opacity: 0;
-      transition: opacity 0.25s ease;
-    }
-
-    .spider-highlight > :not(.spider-highlight-canvas) {
-      position: relative;
-      z-index: 1;
-    }
-
-    .spider-highlight:hover,
-    .spider-highlight:focus-visible {
-      border-color: color-mix(in srgb, var(--accent-3) 44%, var(--spider-border));
-    }
-
-    .spider-highlight:hover .spider-highlight-canvas,
-    .spider-highlight:focus-visible .spider-highlight-canvas {
-      opacity: 1;
-    }
-
-    .spider-highlight:focus-visible {
-      outline: none;
-      box-shadow: var(--ring), 0 24px 60px rgba(0, 0, 0, 0.4);
-    }
-
-    .matrix-highlight {
-      --tcping-bg: rgba(7, 13, 26, 0.52);
-      --tcping-border: rgba(56, 189, 248, 0.14);
-
-      position: relative;
-      isolation: isolate;
-      cursor: pointer;
-      border-color: var(--tcping-border);
-      background: var(--tcping-bg);
-      box-shadow:
-        0 0 0 1px rgba(255, 255, 255, 0.04),
-        0 24px 60px rgba(0, 0, 0, 0.5),
-        inset 0 1px 0 rgba(255, 255, 255, 0.06);
-      backdrop-filter: blur(18px) saturate(160%);
-      -webkit-backdrop-filter: blur(18px) saturate(160%);
-      contain: paint;
-    }
-
-    body[data-theme="light"] .matrix-highlight {
-      --tcping-bg: rgba(255, 255, 255, 0.92);
-      --tcping-border: rgba(37, 99, 235, 0.15);
-
-      box-shadow: 0 8px 40px rgba(0, 0, 0, 0.12), 0 1px 3px rgba(0, 0, 0, 0.06);
-    }
-
-    .matrix-highlight::before,
-    .matrix-highlight::after {
-      content: none;
-    }
-
-    .matrix-highlight .matrix-highlight-canvas {
-      position: absolute;
-      inset: 0;
-      z-index: 0;
-      pointer-events: none;
-      width: 100%;
-      height: 100%;
-      border-radius: inherit;
-      opacity: 0;
-      transition: opacity 0.25s ease;
-    }
-
-    .matrix-highlight > :not(.matrix-highlight-canvas) {
-      position: relative;
-      z-index: 1;
-    }
-
-    .matrix-highlight:hover,
-    .matrix-highlight:focus-visible {
-      border-color: color-mix(in srgb, var(--accent) 42%, var(--tcping-border));
-    }
-
-    .matrix-highlight:hover .matrix-highlight-canvas,
-    .matrix-highlight:focus-visible .matrix-highlight-canvas {
-      opacity: 1;
-    }
-
-    .matrix-highlight:focus-visible {
-      outline: none;
-      box-shadow: var(--ring), 0 24px 60px rgba(0, 0, 0, 0.4);
     }
 
     .timeline {
@@ -1600,7 +1479,7 @@
         padding: 0;
       }
 
-      a.highlight.site-highlight {
+      .highlight.site-highlight {
         display: flex;
       }
 

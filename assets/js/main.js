@@ -130,24 +130,51 @@
     (function countersAndReveal() {
       const revealItems = document.querySelectorAll(".reveal, .timeline-item");
       const counters = document.querySelectorAll("[data-target]");
+      const chips = document.querySelectorAll(".chips");
       let counterDone = false;
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      document.querySelectorAll(".highlights .reveal, .certs-grid .reveal, .skills-layout .reveal, .contact-cards .social-card, .hero-side .reveal").forEach((item, index) => {
+        item.style.setProperty("--reveal-delay", (index % 6) * 70 + "ms");
+      });
+
+      const heroSideCards = document.querySelectorAll(".hero-side .reveal");
+      heroSideCards.forEach((card, index) => {
+        card.classList.add(index % 2 === 0 ? "from-left" : "from-right");
+      });
 
       const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
           if (!entry.isIntersecting) return;
           entry.target.classList.add("visible");
         });
-      }, { threshold: 0.14 });
+      }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
 
       revealItems.forEach((item) => observer.observe(item));
 
+      const chipsObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add("in-view");
+          chipsObserver.unobserve(entry.target);
+        });
+      }, { threshold: 0.2 });
+
+      chips.forEach((group) => chipsObserver.observe(group));
+
       function animateCounter(el, target) {
+        if (reduceMotion) {
+          el.textContent = target + "+";
+          return;
+        }
+
         const duration = 1100;
         const start = performance.now();
 
         function frame(now) {
           const progress = Math.min((now - start) / duration, 1);
-          const value = Math.floor(progress * target);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          const value = Math.floor(eased * target);
           el.textContent = value + "+";
           if (progress < 1) requestAnimationFrame(frame);
         }
@@ -165,6 +192,22 @@
 
       const heroStats = document.querySelector(".hero-stats");
       if (heroStats) counterObserver.observe(heroStats);
+    })();
+
+    (function pointerGlow() {
+      const cards = document.querySelectorAll(".glass-card, .highlight");
+      const coarsePointer = window.matchMedia("(pointer: coarse)").matches;
+      if (coarsePointer) return;
+
+      cards.forEach((card) => {
+        card.addEventListener("pointermove", (event) => {
+          const rect = card.getBoundingClientRect();
+          const x = ((event.clientX - rect.left) / rect.width) * 100;
+          const y = ((event.clientY - rect.top) / rect.height) * 100;
+          card.style.setProperty("--mx", x + "%");
+          card.style.setProperty("--my", y + "%");
+        });
+      });
     })();
 
     (function navigationUX() {
@@ -284,21 +327,43 @@
     (function cardTilt() {
       const cards = document.querySelectorAll(".tilt-card");
       const coarsePointer = window.matchMedia("(pointer: coarse)").matches;
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-      if (coarsePointer) return;
+      if (coarsePointer || reduceMotion) return;
 
       cards.forEach((card) => {
         card.addEventListener("mousemove", (event) => {
           const rect = card.getBoundingClientRect();
           const x = event.clientX - rect.left;
           const y = event.clientY - rect.top;
-          const rx = ((y / rect.height) - 0.5) * -6;
-          const ry = ((x / rect.width) - 0.5) * 6;
-          card.style.transform = "perspective(900px) rotateX(" + rx + "deg) rotateY(" + ry + "deg)";
+          const rx = ((y / rect.height) - 0.5) * -7;
+          const ry = ((x / rect.width) - 0.5) * 7;
+          card.style.transform = "perspective(900px) rotateX(" + rx + "deg) rotateY(" + ry + "deg) translateY(-2px)";
         });
 
         card.addEventListener("mouseleave", () => {
-          card.style.transform = "perspective(900px) rotateX(0) rotateY(0)";
+          card.style.transform = "perspective(900px) rotateX(0) rotateY(0) translateY(0)";
+        });
+      });
+    })();
+
+    (function magneticButtons() {
+      const buttons = document.querySelectorAll(".btn");
+      const coarsePointer = window.matchMedia("(pointer: coarse)").matches;
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      if (coarsePointer || reduceMotion) return;
+
+      buttons.forEach((button) => {
+        button.addEventListener("mousemove", (event) => {
+          const rect = button.getBoundingClientRect();
+          const x = event.clientX - rect.left - rect.width / 2;
+          const y = event.clientY - rect.top - rect.height / 2;
+          button.style.transform = "translate(" + (x * 0.12) + "px, " + (y * 0.18 - 2) + "px)";
+        });
+
+        button.addEventListener("mouseleave", () => {
+          button.style.transform = "";
         });
       });
     })();

@@ -10,6 +10,19 @@
       let particles = [];
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+      function particleColors() {
+        const styles = getComputedStyle(document.body);
+        const fill = (styles.getPropertyValue("--particle").trim() || "56, 189, 248");
+        const link = (styles.getPropertyValue("--particle-link").trim() || "45, 212, 191");
+        const isLight = document.body.getAttribute("data-theme") === "light";
+        return {
+          fill,
+          link,
+          alphaScale: isLight ? 0.55 : 1,
+          linkScale: isLight ? 0.7 : 1
+        };
+      }
+
       function resize() {
         width = canvas.width = window.innerWidth;
         height = canvas.height = window.innerHeight;
@@ -40,6 +53,7 @@
         }
 
         ctx.clearRect(0, 0, width, height);
+        const colors = particleColors();
 
         for (let i = 0; i < particles.length; i += 1) {
           const p = particles[i];
@@ -53,7 +67,7 @@
 
           ctx.beginPath();
           ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-          ctx.fillStyle = "rgba(56, 189, 248, " + p.alpha + ")";
+          ctx.fillStyle = "rgba(" + colors.fill + ", " + (p.alpha * colors.alphaScale) + ")";
           ctx.fill();
 
           for (let j = i + 1; j < particles.length; j += 1) {
@@ -66,7 +80,7 @@
               ctx.beginPath();
               ctx.moveTo(p.x, p.y);
               ctx.lineTo(q.x, q.y);
-              ctx.strokeStyle = "rgba(45, 212, 191, " + (0.11 * (1 - dist / 110)) + ")";
+              ctx.strokeStyle = "rgba(" + colors.link + ", " + (0.11 * colors.linkScale * (1 - dist / 110)) + ")";
               ctx.lineWidth = 0.7;
               ctx.stroke();
             }
